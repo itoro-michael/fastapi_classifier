@@ -6,7 +6,9 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 # Optional: implement hyperparameter tuning.
-def train_model(X_train:np.ndarray, y_train:np.ndarray) -> RandomForestClassifier:
+def train_model(
+        X_train: np.ndarray,
+        y_train: np.ndarray) -> RandomForestClassifier:
     """
     Trains a machine learning model and returns it.
 
@@ -22,12 +24,15 @@ def train_model(X_train:np.ndarray, y_train:np.ndarray) -> RandomForestClassifie
         Trained machine learning model.
     """
 
-    clf = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=42)
+    clf = RandomForestClassifier(
+        n_estimators=100,
+        max_depth=10,
+        random_state=42)
     clf.fit(X_train, y_train)
-    return clf    
+    return clf
 
 
-def compute_model_metrics(y:np.ndarray, preds:np.ndarray):
+def compute_model_metrics(y: np.ndarray, preds: np.ndarray):
     """
     Validates the trained machine learning model using precision, recall, and F1.
 
@@ -65,9 +70,9 @@ def inference(model, X) -> np.ndarray:
     """
     preds = model.predict(X)
     return preds
- 
- 
-def save_model(model, file_path:str) -> None:
+
+
+def save_model(model, file_path: str) -> None:
     """
     Saves the machine learning model to file_path.
 
@@ -83,9 +88,9 @@ def save_model(model, file_path:str) -> None:
     """
     with open(file_path, mode='wb') as file:
         cloudpickle.dump(model, file)
-        
-        
-def load_model(file_path:str) -> RandomForestClassifier:
+
+
+def load_model(file_path: str) -> RandomForestClassifier:
     """
     Loads the machine learning model from file_path.
 

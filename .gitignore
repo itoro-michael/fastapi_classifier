@@ -1,5 +1,4 @@
 %SystemDrive%/
 data/
-model/
-venv/
+.idea/
 **/__pycache__/

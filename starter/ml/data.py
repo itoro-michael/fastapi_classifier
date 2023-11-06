@@ -8,9 +8,9 @@ from typing import Union
 dict_pred = {"0": "<=50K", "1": ">50K"}
 
 list_of_dict_request = [
-                {
-                     'age': 39,
-                     'workclass': ' State-gov',
+    {
+        'age': 39,
+        'workclass': ' State-gov',
                      'fnlgt': 77516,
                      'education': ' Bachelors',
                      'education_num': 13,
@@ -23,8 +23,8 @@ list_of_dict_request = [
                      'capital_loss': 0,
                      'hours_per_week': 40,
                      'native_country': ' United-States'
-                 }
-            ]
+    }
+]
 
 
 class Data(BaseModel):
@@ -52,45 +52,64 @@ class Data(BaseModel):
     }
 
 
-list_required_columns = ['age', 'workclass', 'fnlgt', 'education', 'education_num',
-    'marital_status', 'occupation', 'relationship', 'race', 'sex', 'capital_gain',
-    'capital_loss', 'hours_per_week', 'native_country']
+list_required_columns = [
+    'age',
+    'workclass',
+    'fnlgt',
+    'education',
+    'education_num',
+    'marital_status',
+    'occupation',
+    'relationship',
+    'race',
+    'sex',
+    'capital_gain',
+    'capital_loss',
+    'hours_per_week',
+    'native_country']
 
 
 list_categorical_features = [
-        "workclass",
-        "education",
-        "marital_status",
-        "occupation",
-        "relationship",
-        "race",
-        "sex",
-        "native_country",
-    ]
+    "workclass",
+    "education",
+    "marital_status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native_country",
+]
 
 
-dict_greeting = {"greeting": "Get predictions using the /predict POST endpoint"}
+dict_greeting = {
+    "greeting": "Get predictions using the /predict POST endpoint"}
 
 
-def trim_dataframe(data_df:pd.DataFrame) -> pd.DataFrame:
+def trim_dataframe(data_df: pd.DataFrame) -> pd.DataFrame:
     """Removes leading and trailing spaces from column names and data elements."""
-    data_df.columns = [col.strip().replace('-', '_') for col in data_df.columns]
-    data_df = data_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+    data_df.columns = [col.strip().replace('-', '_')
+                       for col in data_df.columns]
+    data_df = data_df.applymap(
+        lambda x: x.strip() if isinstance(
+            x, str) else x)
     return data_df
 
 
-def dataset_with_selected_column_value(X:pd.DataFrame, label:str, column_value:str) -> pd.DataFrame:
-    output = X[X[label]==column_value]
+def dataset_with_selected_column_value(
+        X: pd.DataFrame,
+        label: str,
+        column_value: str) -> pd.DataFrame:
+    output = X[X[label] == column_value]
     return output
 
 
 def process_data(
-    X:pd.DataFrame, 
-    categorical_features:list=[], 
-    label:str=None, 
-    training:bool=True, 
-    encoder:OneHotEncoder=None, 
-    lb:LabelBinarizer=None
+    X: pd.DataFrame,
+    categorical_features: list = [],
+    label: str = None,
+    training: bool = True,
+    encoder: OneHotEncoder = None,
+    lb: LabelBinarizer = None
 ):
     """ Process the data used in the machine learning pipeline.
 
