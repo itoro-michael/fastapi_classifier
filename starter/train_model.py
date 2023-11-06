@@ -8,6 +8,7 @@ from starter.ml.model import train_model, save_model, inference, compute_model_m
 from starter.ml.data import process_data, dataset_with_selected_column_value, trim_dataframe, \
     list_categorical_features
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 logging.basicConfig(
     format='%(asctime)s:%(levelname)s:%(message)s',
@@ -56,7 +57,8 @@ def main():
     logging.info('Show model metric on test set.')
     pred = inference(model, X_test)
     precision, recall, fbeta = compute_model_metrics(y_test, pred)
-    print('precision, recall, fbeta: ', precision, recall, fbeta)
+    accuracy = accuracy_score(y_test, pred)
+    print('precision, recall, fbeta, accuracy: ', precision, recall, fbeta, accuracy)
 
     # Save model
     logging.info('Save the model.')

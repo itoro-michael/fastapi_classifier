@@ -1,10 +1,11 @@
 cloudpickle
-fastapi
 httpcore
 httpx
+requests
+contextlib2
+fastapi
 numpy
 pandas
 pytest
 scikit-learn
-requests
 uvicorn

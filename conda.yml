@@ -1,4 +1,4 @@
-name: fastapi_endpoint
+name: render_env
 
 # Combine: conda env export --from-history
 # And packages installed with pip.
@@ -8,11 +8,16 @@ channels:
   - defaults
 dependencies:
   - fastapi
-  - jupyter
-  - jupyterlab
   - numpy
   - pandas
   - pytest
-  - python=3.8
+  - python=3.6
   - scikit-learn
   - uvicorn
+  - pip
+  - pip:
+      - cloudpickle
+      - httpcore
+      - httpx
+      - requests
+      - contextlib2
