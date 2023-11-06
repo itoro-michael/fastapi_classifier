@@ -143,7 +143,3 @@ def compute_model_metrics_on_column_value(input_df: pd.DataFrame,
     precision, recall, fbeta = compute_model_metrics(y, pred)
 
     return precision, recall, fbeta
-
-
-if __name__ == '__main__':
-    main()
