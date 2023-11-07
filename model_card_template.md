@@ -11,18 +11,19 @@ For additional information see the Model Card paper: https://arxiv.org/pdf/1810.
 - Intended for use with US census data.
 
 ## Training Data
-- US census data, census.csv.
+- census.csv: The US census data.
 
 
 ## Evaluation Data
 - 20% of the entire dataset is used for model evaluation.
 
 ## Metrics
-_Please include the metrics used and your model's performance on those metrics._
-- The metric are precision, recall, fbeta with values 0.80, 0.54, and 0.64 respectively.
+- The metrics are precision=0.80, recall=0.54, fbeta=0.64, and 0.85 for accuracy.
 
 ## Ethical Considerations
 - Data used is publicly available.
+- Model performs effectively across the different racial groups in the dataset.
+- Least accuracy on test set for a racial group is 0.82 for Asian-Pac-Islander, and the most is 0.93 for Blacks.
 
 ## Caveats and Recommendations
 - Multiple classifiers could be used to arrive at optimum performance.

@@ -6,7 +6,7 @@ import logging
 from pathlib import Path
 from starter.ml.model import train_model, save_model, inference, compute_model_metrics
 from starter.ml.data import process_data, dataset_with_selected_column_value, trim_dataframe, \
-    list_categorical_features
+    list_categorical_features, list_metric
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
@@ -74,7 +74,7 @@ def main():
     # compute performance on data slice
     logging.info('Running the create_metric_data function.')
     list_output = create_metric_data(input_df=test,
-                                     column_name='education',
+                                     column_name='race',
                                      categorical_features=cat_features,
                                      encoder=encoder,
                                      lb=lb,
@@ -93,8 +93,7 @@ def save_metric_data(list_metric_data: list, file_path: str):
     # Write CSV file
     with open(file_path, "wt") as fp:
         writer = csv.writer(fp, delimiter=",")
-        writer.writerow(['column_name', 'column_value',
-                        'precision', 'recall', 'fbeta'])
+        writer.writerow(list_metric)
         writer.writerows(list_metric_data)
 
 
@@ -109,13 +108,12 @@ def create_metric_data(input_df: pd.DataFrame,
     """
     list_column_value = input_df[column_name].unique()
     list_output = []
-    print('column_name', 'column_value', 'precision', 'recall', 'fbeta')
+    print(list_metric)
     for column_value in list_column_value:
-        precision, recall, fbeta = compute_model_metrics_on_column_value(
+        metric_tuple = compute_model_metrics_on_column_value(
             input_df, column_name, column_value, categorical_features, encoder, lb, model)
-        list_output.append(
-            [column_name, column_value, precision, recall, fbeta])
-        print([column_name, column_value, precision, recall, fbeta])
+        list_output.append(metric_tuple)
+        print(f'{column_name}, {column_value}, ', metric_tuple)
     return list_output
 
 
@@ -141,5 +139,6 @@ def compute_model_metrics_on_column_value(input_df: pd.DataFrame,
                               lb=lb)
     pred = inference(model, X)
     precision, recall, fbeta = compute_model_metrics(y, pred)
+    accuracy = accuracy_score(y, pred)
 
-    return precision, recall, fbeta
+    return precision, recall, fbeta, accuracy
