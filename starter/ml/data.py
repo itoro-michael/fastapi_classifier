@@ -5,7 +5,7 @@ from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 from pydantic import BaseModel
 from typing import Union
 
-list_metric = ['column_name', 'column_value', 'precision', 'recall', 'fbeta', 'accuracy']
+list_header = ['column_name', 'column_value']
 
 dict_pred = {"0": "<=50K", "1": ">50K"}
 

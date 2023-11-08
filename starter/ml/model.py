@@ -1,11 +1,10 @@
 import cloudpickle
 import numpy as np
 
-from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.metrics import fbeta_score, precision_score, recall_score, accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 
 
-# Optional: implement hyperparameter tuning.
 def train_model(
         X_train: np.ndarray,
         y_train: np.ndarray) -> RandomForestClassifier:
@@ -32,10 +31,82 @@ def train_model(
     return clf
 
 
+def compute_precision(y: np.ndarray, preds: np.ndarray):
+    """
+    Validates the trained machine learning model using precision
+    Inputs
+    ------
+    y : np.array
+        Known labels, binarized.
+    preds : np.array
+        Predicted labels, binarized.
+    Returns
+    -------
+    precision : float
+    """
+    precision = precision_score(y, preds, zero_division=1)
+
+    return precision
+
+
+def compute_recall(y: np.ndarray, preds: np.ndarray):
+    """
+    Validates the trained machine learning model using recall
+    Inputs
+    ------
+    y : np.array
+        Known labels, binarized.
+    preds : np.array
+        Predicted labels, binarized.
+    Returns
+    -------
+    recall : float
+    """
+    recall = recall_score(y, preds, zero_division=1)
+
+    return recall
+
+
+def compute_fbeta(y: np.ndarray, preds: np.ndarray):
+    """
+    Validates the trained machine learning model using fbeta
+    Inputs
+    ------
+    y : np.array
+        Known labels, binarized.
+    preds : np.array
+        Predicted labels, binarized.
+    Returns
+    -------
+    fbeta : float
+    """
+    fbeta = fbeta_score(y, preds, beta=1, zero_division=1)
+
+    return fbeta
+
+
+def compute_accuracy(y: np.ndarray, preds: np.ndarray):
+    """
+    Validates the trained machine learning model using accuracy
+    Inputs
+    ------
+    y : np.array
+        Known labels, binarized.
+    preds : np.array
+        Predicted labels, binarized.
+    Returns
+    -------
+    accuracy : float
+    """
+    accuracy = accuracy_score(y, preds)
+
+    return accuracy
+
+
 def compute_model_metrics(y: np.ndarray, preds: np.ndarray):
     """
     Validates the trained machine learning model using precision, recall, and F1.
-
+    Compound Functions: Are inflexible to changes.
     Inputs
     ------
     y : np.array
@@ -105,3 +176,11 @@ def load_model(file_path: str) -> RandomForestClassifier:
     with open(file_path, mode='rb') as file:
         model = cloudpickle.load(file)
     return model
+
+
+dict_metric = {
+    'precision': compute_precision,
+    'recall': compute_recall,
+    'fbeta': compute_fbeta,
+    'accuracy': compute_accuracy
+}
