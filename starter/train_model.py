@@ -51,13 +51,13 @@ def main():
     classifier = model.train_model(X_train, y_train)
     logging.info('Model training completed')
 
-    # Print model metric
+    # Inference on testset
     logging.info('Show model metric on test set.')
     pred = model.inference(classifier, X_test)
-    precision, recall, fbeta = model.compute_model_metrics(y_test, pred)
-    accuracy = accuracy_score(y_test, pred)
-    print('precision, recall, fbeta, accuracy: ',
-          precision, recall, fbeta, accuracy)
+
+    # Print metric
+    for key, metric in model.dict_metric.items():
+        print(f'{key}: ', metric(y_test, pred))
 
     # Save model
     logging.info('Save the model.')
